@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="post">
+
+
+	<select id="findAll" parameterType="String" resultType="postvo">
+		<choose>
+			<when test="categoryNo == 0">
+			<![CDATA[
+				select b.no, b.title, b.contents, b.category_no as categoryNo, b.reg_date as regDate
+				from category a 
+					join post b on a.no = b.category_no
+				where id = #{id }
+				order by b.reg_date desc
+				]]>			
+			</when>
+			<otherwise>
+				<![CDATA[
+				select b.no, b.title, b.contents, b.category_no as categoryNo, b.reg_date as regDate
+				from category a 
+					left join post b on a.no = b.category_no
+				where a.id = #{id } and a.no = #{categoryNo }
+				order by b.reg_date desc
+				]]>			
+			</otherwise>		
+		</choose>
+	</select>
+	
+	<select id="findById" parameterType="String" resultType="postvo">
+		<choose>
+			<when test="postNo == 0 and categoryNo == 0">
+				<![CDATA[
+				select b.no, b.title, b.contents, b.category_no as categoryNo, b.reg_date as regDate
+				from category a 
+					left join post b on a.no = b.category_no
+				where a.id = #{id }
+				order by b.reg_date desc
+				limit 1
+				]]>			
+			</when>
+			<when test="postNo == 0 and categoryNo != 0">
+				<![CDATA[
+				select b.no, b.title, b.contents, b.category_no as categoryNo, b.reg_date as regDate
+				from category a 
+					left join post b on a.no = b.category_no
+				where a.id = #{id } and b.category_no = #{categoryNo }
+				order by b.reg_date desc
+				limit 1
+				]]>			
+			</when>
+			<otherwise>
+				<![CDATA[
+				select b.no, b.title, b.contents, b.category_no as categoryNo, b.reg_date as regDate
+				from category a 
+					left join post b on a.no = b.category_no
+				where a.id = #{id } and b.no = #{postNo }
+				]]>				
+			</otherwise>		
+		</choose>
+
+	</select>
+	
+	<insert id="insert">
+		<![CDATA[
+		insert 
+			into post 
+		values(null, #{title }, #{contents }, now(), #{categoryNo });
+		]]>
+	</insert>
+
+</mapper>
