@@ -46,17 +46,20 @@ public class BlogController {
 
 		Long categoryNo = 0L;
 		Long postNo = 0L;
+		int chk = -1;
 		
 		if( pathNo2.isPresent() ) {
+			if(pathNo1.get() != 0) {
+				chk = 0;
+			}
 			categoryNo = pathNo1.get();
 			postNo = pathNo2.get();			
 		} else if( pathNo1.isPresent() ){
+			if(pathNo1.get() != 0) {
+				chk = 0;
+			}
 			categoryNo = pathNo1.get();
-		}
-		
-		if(!pathNo1.isPresent()) {
-			
-		}
+		}	
 		
 		BlogVo blogVo = blogService.getBlogInfo(id);
 		PostVo postVo = postService.getPostOne(id, categoryNo, postNo);  // 상단 1개나오는 전체 포스트
@@ -67,6 +70,7 @@ public class BlogController {
 		model.addAttribute("postList", postList);
 		model.addAttribute("postOne", postVo);
 		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("chk", chk);
 		
 		return "blog/blog-main";
 	}	

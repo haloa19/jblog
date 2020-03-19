@@ -22,9 +22,19 @@
 					<p> ${fn:replace(postOne.contents, newLine, "<br>") } <br><p>
 				</div>
 				<ul class="blog-list">
+				<h3><a href="${pageContext.request.contextPath}/${blogVo.id}">전체목록</a></h3>
+				<c:choose>
+				<c:when test="${chk == 0 }">
 					<c:forEach items="${postList }" var="vo" varStatus="status">
 						<li><a href="${pageContext.request.contextPath}/${blogVo.id}/${vo.categoryNo}/${vo.no}">${vo.title }</a> <span>${vo.regDate }</span>	</li>
+					</c:forEach>				
+				</c:when>
+				<c:otherwise>
+					<c:forEach items="${postList }" var="vo" varStatus="status">
+						<li><a href="${pageContext.request.contextPath}/${blogVo.id}/0/${vo.no}">${vo.title }</a> <span>${vo.regDate }</span>	</li>
 					</c:forEach>
+				</c:otherwise>
+				</c:choose>				
 				</ul>
 			</div>
 		</div>
@@ -37,6 +47,7 @@
 
 		<div id="navigation">
 			<h2>카테고리</h2>
+			
 			<ul>
 				<c:forEach items="${categoryList }" var="vo" varStatus="status">
 					<li><a href="${pageContext.request.contextPath}/${blogVo.id}/${vo.no}">${vo.name }</a></li>				

@@ -56,8 +56,10 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		// 7. 권한(Authorization) 체크를 위해서 @Auth의 ID값, URL 가져오기		
 		String role = authUser.getId();
 		String url = request.getRequestURI();
+		String[] url2 = url.split("/");
 		
-		if(url.contains(role)) {
+		
+		if(url2[2].equals(role)) {
 			return true;
 		} else {
 			response.sendRedirect(request.getContextPath() + "/user/login");
