@@ -22,7 +22,8 @@
 					<p> ${fn:replace(postOne.contents, newLine, "<br>") } <br><p>
 				</div>
 				<ul class="blog-list">
-				<h3><a href="${pageContext.request.contextPath}/${blogVo.id}">전체목록</a></h3>
+				<li><a href="${pageContext.request.contextPath}/${blogVo.id}">전체목록</a></li>
+				<li></li>
 				<c:choose>
 				<c:when test="${chk == 0 }">
 					<c:forEach items="${postList }" var="vo" varStatus="status">
