@@ -6,7 +6,7 @@
 		<![CDATA[
 		insert 
 			into blog
-		values(#{id }, concat(#{name },'님의 블로그입니다.'), '/assets/images/ryon.png')
+		values(#{id }, concat(#{name },'님의 블로그입니다.'), '/assets/image/ryon.png')
 		]]>
 	</insert>
 	
