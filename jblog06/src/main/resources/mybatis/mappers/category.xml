@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="category">
+
+	<insert id="insert" parameterType="uservo">
+		<![CDATA[
+		insert 
+			into category
+		values(null, '기타', '분류가 없는 포스트', now(), #{id})
+		]]>
+	</insert>
+	
+	<select id="selectById" parameterType="String" resultType="categoryvo">
+		<![CDATA[
+		select no, name
+		from category
+		where id = #{id }
+		]]>
+	</select>
+	
+	<select id="selectByIdAll" parameterType="String" resultType="categoryvo">
+		<![CDATA[
+		select a.no, a.name, a.description, ifnull(count(b.category_no), 0) as postCnt
+		from category a left join post b on a.no = b.category_no 
+		where a.id = #{id }
+		group by a.name
+		order by a.reg_date desc
+		]]>
+	</select>
+	
+	<insert id="categoryAdd" parameterType="categoryvo">
+		<![CDATA[
+		insert 
+			into category
+		values(null, #{name }, #{description }, now(), #{id})
+		]]>
+	</insert>
+	
+	<delete id="delete">
+		<![CDATA[		
+		delete 
+		from category 
+		where no = #{no }
+		]]>	
+	</delete>
+	
+	<select id="selectNo" parameterType="String" resultType="long">
+		<![CDATA[
+		select no
+		from category
+		where id = #{id } and name = #{name }
+		]]>
+	</select>
+	
+	<select id="selectPostCnt" parameterType="long" resultType="int">
+		<![CDATA[
+		select ifnull(count(b.category_no), 0) as postCnt
+		from category a left join post b on a.no = b.category_no 
+		where a.no = #{no }
+		group by a.name
+		]]>
+	</select>
+
+
+</mapper>
