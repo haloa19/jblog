@@ -28,7 +28,6 @@ public class CategoryRepository {
 	}
 
 	public List<CategoryVo> selectByIdAll(String id) {
-		
 		return sqlSession.selectList("category.selectByIdAll", id);
 	}
 

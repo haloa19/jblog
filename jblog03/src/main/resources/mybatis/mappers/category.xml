@@ -8,6 +8,9 @@
 			into category
 		values(null, '기타', '분류가 없는 포스트', now(), #{id})
 		]]>
+	  <selectKey keyProperty = "no" resultType="long" order="AFTER">
+         select last_insert_id()
+      </selectKey>
 	</insert>
 	
 	<select id="selectById" parameterType="String" resultType="categoryvo">
@@ -20,10 +23,10 @@
 	
 	<select id="selectByIdAll" parameterType="String" resultType="categoryvo">
 		<![CDATA[
-		select a.no, a.name, a.description, ifnull(count(b.category_no), 0) as postCnt
+		select a.no, a.id, a.name, a.description, ifnull(count(b.category_no), 0) as postCnt
 		from category a left join post b on a.no = b.category_no 
 		where a.id = #{id }
-		group by a.name
+		group by a.no
 		order by a.reg_date desc
 		]]>
 	</select>
@@ -34,6 +37,9 @@
 			into category
 		values(null, #{name }, #{description }, now(), #{id})
 		]]>
+		<selectKey keyProperty = "no" resultType="long" order="AFTER">
+         select last_insert_id()
+       </selectKey>
 	</insert>
 	
 	<delete id="delete">

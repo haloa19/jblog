@@ -36,8 +36,7 @@ public class CategoryService {
 	}
 
 	public void delete(Long no) {
-		categoryRepository.delete(no);
-		
+		categoryRepository.delete(no);		
 	}
 
 	public Long getNo(String name, String id) {
