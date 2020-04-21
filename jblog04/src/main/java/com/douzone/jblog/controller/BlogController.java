@@ -202,4 +202,19 @@ public class BlogController {
 		return "redirect:/{id}";
 	}
 	
+	@Auth
+	@RequestMapping(value="/admin/category/ajax", method=RequestMethod.GET)
+	public String categoryAjax(Model model,
+						  @AuthUser UserVo authUser,
+						  @PathVariable("id") String id) {
+		
+		BlogVo blogVo = blogService.getBlogInfo(id);		
+		model.addAttribute("blogVo", blogVo);
+		
+		if(!id.equals(authUser.getId())){
+			return "id:" + id;
+		}
+
+		return "blog/blog-admin-category-ajax";
+	}
 }
