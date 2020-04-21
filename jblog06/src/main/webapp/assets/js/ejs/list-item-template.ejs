@@ -1,0 +1,21 @@
+<tr data-no='<%=no %>'>
+	<td><%=listCnt %></td>
+	<td><%=name %></td>
+	<td><%=postCnt %></td>
+	<td><%=description.replace(/\n/gi, "<br/>") %></td>
+	<%
+		if(postCnt == 0 && listCnt > 1) {
+	
+	%>
+		<td><a href='' data-no='<%=no %>'>
+			<img src="<%=contextPath %>/assets/images/delete.jpg" id="delete-btn">
+			</a>
+		</td>
+	<%
+		} else {
+	%>
+		<td></td>
+<%
+		}
+%>
+</tr>
