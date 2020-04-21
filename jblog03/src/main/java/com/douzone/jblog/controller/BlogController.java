@@ -208,6 +208,9 @@ public class BlogController {
 						  @AuthUser UserVo authUser,
 						  @PathVariable("id") String id) {
 		
+		BlogVo blogVo = blogService.getBlogInfo(id);		
+		model.addAttribute("blogVo", blogVo);
+		
 		if(!id.equals(authUser.getId())){
 			return "id:" + id;
 		}

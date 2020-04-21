@@ -30,7 +30,6 @@ var fetchList = function(){
 		dataType: 'json',
 		data: '',
 		success: function(response){
-			
 			if(response.result != "success") {
 				console.error(response.message);
 				return;
@@ -145,10 +144,10 @@ $(function(){
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
-					<li><a href="${pageContext.request.contextPath}/${blogVo.id}/admin/basic">기본설정</a></li>
-					<li><a href="${pageContext.request.contextPath }/${blogVo.id }/admin/category">카테고리</a></li>
+					<li><a href="${pageContext.request.contextPath}/${authUser.id}/admin/basic">기본설정</a></li>
+					<li><a href="${pageContext.request.contextPath }/${authUser.id}/admin/category">카테고리</a></li>
 					<li class="selected">카테고리(Ajax)</li>
-					<li><a href="${pageContext.request.contextPath}/${blogVo.id}/admin/write">글작성</a></li>
+					<li><a href="${pageContext.request.contextPath}/${authUser.id}/admin/write">글작성</a></li>
 				</ul>
 		      	<table class="admin-cat">
 		      		<tr id='menu-title'>

@@ -19,11 +19,9 @@ public class CategoryRepository {
 
 	public void insert(UserVo vo) {
 		sqlSession.insert("category.insert", vo);
-		
 	}
 
-	public List<CategoryVo> selectById(String id) {
-		
+	public List<CategoryVo> selectById(String id) {		
 		return sqlSession.selectList("category.selectById", id);
 	}
 
